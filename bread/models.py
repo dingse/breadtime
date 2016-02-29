@@ -4,15 +4,15 @@ from django.db import models
 
 # Create your models here.
 class Bread(models.Model):
-	image_file = models.ImageField(upload_to='static_files/uploaded/original/%Y/%m/%d')
-	filtered_image_file = models.ImageField(upload_to='static_files/uploaded/filtered/%Y/%m/%d') 
+	image_file = models.ImageField(upload_to='original/%Y/%m/%d')
+	filtered_image_file = models.ImageField(upload_to='filtered/%Y/%m/%d') 
 		# Can be extended to a thumnail or an image chain
 	description = models.TextField(max_length = 1000)
-	realease_at = models.DateTimeField(auto_now_add = True)
+	release_at = models.DateTimeField(auto_now_add = True)
 	created_at = models.DateTimeField(auto_now_add = True)
 
-	def upload(self):
-		self.save()
+	#def upload(self):
+	#	self.save()
 
 	def delete(self, *args, **kwargs):
 		self.image_file.delete()

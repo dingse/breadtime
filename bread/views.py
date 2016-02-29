@@ -2,6 +2,7 @@
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.utils import timezone
 
 from .models import Bread
 
@@ -17,4 +18,6 @@ def single_bread(request, bread_id):
 	)
 
 def bread_list(request):
-	return render(request, 'bread/bread_list.html', {})
+	#breads = Bread.objects.filter(release_at=timezone.now()).order_by('release_at')
+	breads = Bread.objects.all()
+	return render(request, 'bread/bread_list.html', {'breads':breads})

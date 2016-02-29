@@ -10,6 +10,17 @@
 		</div>
 
 
+		
+			{% for bread in breads %}
+			<div>
+			<h1><p><img src='uploads/{{ bread.image_file }}'></p></h1>
+				<p>{{ bread.description }}</p>
+				<p>release at: {{ bread.release_at }}</p>
+			</div>
+			{% endfor %}
+		
+
+
 		<div>
 			<p>published: 15.02.29, 12:59</p>
 			<h2><a href="">Welcome to my Bakery :)</a></h2>
