@@ -15,7 +15,28 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from bread import views
 
 urlpatterns = [
+	url(r'^$', views.bread_list, name='bread_list'),
     url(r'^admin/', admin.site.urls),
+    url(r'^bread/(\d+)$', views.single_bread, name='view_single_bread'),
+#    url(
+#    	r'^accounts/login/',
+#    	name = 'login',
+#    	kwargs = {
+#    		'template_name': 'login.html'
+#    	}
+#    ),
+#    url(
+#    	r'^accounts/logout/',
+#    	'django.contrib.auth.views.logout',
+#    	name = 'logout'
+#    ),
 ]
+
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static('static_files', document_root = settings.MEDIA_ROOT)
