@@ -4,6 +4,7 @@ from django.db import models
 
 # Create your models here.
 class Bread(models.Model):
+	name = models.TextField(default='noname')
 	image_file = models.ImageField(upload_to='original/%Y/%m/%d')
 	filtered_image_file = models.ImageField(upload_to='filtered/%Y/%m/%d') 
 		# Can be extended to a thumnail or an image chain

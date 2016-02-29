@@ -1,24 +1,35 @@
+{% load staticfiles %}
+
 <html>
 	<head>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	    <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
 		<title>Le Pomier Bokhyun, Bake Choi :)</title>
-		<p>Hi there!</p>
-		<p>It works!</p>
 	</head>
 	<body>
-		<div>
-			<h1><a href="">Le Pomier Bokhyun, Bake Timer!!</a></h1>
+		<div class="page-header">
+			<h1><a href="">Le Pomier Bokhyun, Bake Timer :)</a></h1>
 		</div>
 
 
-		
+<div class="content container">
+    <div class="row">
+        <div class="col-md-8">
 			{% for bread in breads %}
-			<div>
-			<h1><p><img src='uploads/{{ bread.image_file }}'></p></h1>
+			<div class="bread">
+			<h1><a href = "">{{ bread.name }}</a></h1>
+			<p><img src='uploads/{{ bread.image_file }}'></p>
 				<p>{{ bread.description }}</p>
 				<p>release at: {{ bread.release_at }}</p>
 			</div>
 			{% endfor %}
-		
+        </div>
+    </div>
+</div>
 
 
 		<div>
