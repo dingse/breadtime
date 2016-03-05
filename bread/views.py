@@ -21,3 +21,8 @@ def bread_list(request):
 	#breads = Bread.objects.filter(release_at=timezone.now()).order_by('release_at')
 	breads = Bread.objects.all()
 	return render(request, 'bread/bread_list.html', {'breads':breads})
+
+def bread_boot(request):	
+	#breads = Bread.objects.filter(release_at=timezone.now()).order_by('release_at')
+	breads = Bread.objects.all()
+	return render(request, 'bread/bread_boot.html', {'breads':breads})

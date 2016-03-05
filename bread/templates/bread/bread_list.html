@@ -36,8 +36,6 @@
 					<h1><a href = "">{{ bread.name }}</a></h1>
 					<p><img src='uploads/{{ bread.image_file }}'></p>
 					<p>{{ bread.description }}</p>
-					<p>release at: {{ bread.release_at|date:"U" }}</p>
-					<p>id: {{ bread.id }}</p>
 
 
 					<!--
@@ -97,8 +95,8 @@
 					</script>
 
 					<div>
-						<strong>빵 내 놓기 </strong>
-						<span class="countTimeHour{{ bread.id }}">60</span>시
+						<strong>빵 나오기 </strong>
+						<span class="countTimeHour{{ bread.id }}">60</span>시간
 						<span class="countTimeMinute{{ bread.id }}">60</span>분
 						<span class="countTimeSecond{{ bread.id }}">60</span>초
 						<strong> 전! </strong>

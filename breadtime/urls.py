@@ -18,9 +18,10 @@ from django.contrib import admin
 from bread import views
 
 urlpatterns = [
-	url(r'^$', views.bread_list, name='bread_list'),
+#	url(r'^$', views.bread_list, name='bread_list'),
     url(r'^admin/', admin.site.urls),
     url(r'^bread/(\d+)$', views.single_bread, name='view_single_bread'),
+    url(r'^$', views.bread_boot, name='view_bread_boot'),
 #    url(
 #    	r'^accounts/login/',
 #    	name = 'login',
