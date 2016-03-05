@@ -1,107 +1,23 @@
 {% load staticfiles %}
 
 <html>
-	<head>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" href="{% static 'css/main.css' %}">
-	    <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<head>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 
 
-		<title>Le Pomier Bokhyun, Bake Choi :)</title>
-	</head>
+	<title>Le Pomier Bokhyun, Baker Choi :)</title>
+</head>
 
 
-	<body>
-		<div class="page-header">
-			<h1><a href="">Le Pomier Bokhyun, Bake Timer :)</a></h1>
-		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="content container">
-    <div class="row">
-        <div class="col-md-8">
-			{% for bread in breads %}
-			<div class="bread">
-			<h1><a href = "">{{ bread.name }}</a></h1>
-			<p><img src='uploads/{{ bread.image_file }}'></p>
-				<p>{{ bread.description }}</p>
-				<p>release at: {{ bread.release_at }}</p>
-
-
-
-
-
-
-<!-- Timer source -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-<div class="container">
-<div class="row">
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-<div id="main">
-<div class="content">
-<div class="counter">
-<div id="countdown">
-  
-</div><!-- /#Countdown Div -->
-</div> <!-- /.Counter Div -->
-</div> <!-- /.Content Div -->
-</div> <!-- /#Main Div -->
-</div> <!-- /.Columns Div -->
-</div> <!-- /.Row Div -->
-</div> <!-- /.Container Div -->
-<script src='//assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1'></script>
-<!--<script src="{% static 'js/timer.js' %}"></script>-->
-
-
-
-<script>// set the date we're counting down to
-var target_date = new Date('Mar, 19, 2016').getTime();
- 
-// variables for time units
-var days, hours, minutes, seconds;
- 
-// get tag element
-var countdown = document.getElementById('countdown');
- 
-// update the tag with id "countdown" every 1 second
-setInterval(function () {
- 
-    // find the amount of "seconds" between now and target
-    var current_date = new Date().getTime();
-    var seconds_left = (target_date - current_date) / 1000;
- 
-    // do some time calculations
-    days = parseInt(seconds_left / 86400);
-    seconds_left = seconds_left % 86400;
-     
-    hours = parseInt(seconds_left / 3600);
-    seconds_left = seconds_left % 3600;
-     
-    minutes = parseInt(seconds_left / 60);
-    seconds = parseInt(seconds_left % 60);
-     
-    // format countdown string + set tag value
-    countdown.innerHTML = '<span class="days">' + days +  ' <b>Days</b></span> <span class="hours">' + hours + ' <b>Hours</b></span> <span class="minutes">'
-    + minutes + ' <b>Minutes</b></span> <span class="seconds">' + seconds + ' <b>Seconds</b></span>';  
- 
-}, 1000);
-//# sourceURL=pen.js
-</script>
-
-<script src='//codepen.io/assets/editor/live/css_live_reload_init.js'></script>
+<body>
+	<div class="page-header">
+		<h1><a href="">Le Pomier Bokhyun, Bake Timer :)</a></h1>
+	</div>
 
 
 
@@ -112,23 +28,113 @@ setInterval(function () {
 
 
 
+	<div class="content container">
+		<div class="row">
+			<div class="col-md-8">
+				{% for bread in breads %}
+				<div class="bread">
+					<h1><a href = "">{{ bread.name }}</a></h1>
+					<p><img src='uploads/{{ bread.image_file }}'></p>
+					<p>{{ bread.description }}</p>
+					<p>release at: {{ bread.release_at|date:"U" }}</p>
+					<p>id: {{ bread.id }}</p>
+
+
+					<!--
+					<script src="{% static 'js/timer.js' %}"></script>
+					-->
+
+					<script language="javascript">
+
+						$(document).ready(function(){
+						    //초기값
+						    var epoch = new Date().getTime() / 1000;
+						    epoch = Math.floor(epoch);
+
+						    var release = {{ bread.release_at|date:"U" }};
+						    						    
+						    var timeleft = release - epoch; 
+
+						    var hour = Math.floor(timeleft / 3600);
+						    var minute = Math.floor((timeleft % 3600) / 60);
+						    var second = Math.floor(timeleft % 60)
+						    // 초기화
+						    $(".countTimeHour{{ bread.id }}").html(hour);
+						    $(".countTimeMinute{{ bread.id }}").html(minute);
+						    $(".countTimeSecond{{ bread.id }}").html(second);
+						    
+						    var timer = setInterval(function () {
+						            // 설정
+						            $(".countTimeHour{{ bread.id }}").html(hour);
+						            $(".countTimeMinute{{ bread.id }}").html(minute);
+						            $(".countTimeSecond{{ bread.id }}").html(second);
+						            
+						            if(second == 0 && minute == 0 && hour == 0){
+						                alert('타이머 종료.');
+						                clearInterval(timer); /* 타이머 종료 */
+						            }else{
+						                second--;
+						                
+						                // 분처리
+						                if(second < 0){
+						                    minute--;
+						                    second = 59;
+						                }
+						                
+						                //시간처리
+						                if(minute < 0){
+						                    if(hour > 0){
+						                        hour--;
+						                        minute = 59;
+						                    }
+						                    
+						                }
+						            }
+						        }, 1000); /* millisecond 단위의 인터벌 */
+						});
+
+
+					</script>
+
+					<div>
+						<strong>빵 내 놓기 </strong>
+						<span class="countTimeHour{{ bread.id }}">60</span>시
+						<span class="countTimeMinute{{ bread.id }}">60</span>분
+						<span class="countTimeSecond{{ bread.id }}">60</span>초
+						<strong> 전! </strong>
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				</div>
+				{% endfor %}
 			</div>
-			{% endfor %}
-        </div>
-    </div>
-</div>
-
-		<div>
-			<p>published: 15.02.29, 12:59</p>
-			<h2><a href="">Welcome to my Bakery :)</a></h2>
-			<p>We bake good</p>
 		</div>
+	</div>
+
+	<div>
+		<p>published: 15.02.29, 12:59</p>
+		<h2><a href="">Welcome to my Bakery :)</a></h2>
+		<p>We bake good</p>
+	</div>
 
 
-		<div>
-			<p>published: 15.03.01, 02:36</p>
-			<h2><a href="">I will introduce my goods</a></h2>
-			<p>We bake good</p>
-		</div>
-	</body>
+	<div>
+		<p>published: 15.03.01, 02:36</p>
+		<h2><a href="">I will introduce my goods</a></h2>
+		<p>We bake good</p>
+	</div>
+</body>
 </html>

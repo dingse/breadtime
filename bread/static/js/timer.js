@@ -1,31 +1,45 @@
-// set the date we're counting down to
-var target_date = new Date('Mar, 05, 2016').getTime();
- 
-// variables for time units
-var days, hours, minutes, seconds;
- 
-// get tag element
-var countdown = document.getElementById('countdown');
- 
-// update the tag with id "countdown" every 1 second
-setInterval(function () {
- 
-    // find the amount of "seconds" between now and target
-    var current_date = new Date().getTime();
-    var seconds_left = (target_date - current_date) / 1000;
- 
-    // do some time calculations
-    days = parseInt(seconds_left / 86400);
-    seconds_left = seconds_left % 86400;
-     
-    hours = parseInt(seconds_left / 3600);
-    seconds_left = seconds_left % 3600;
-     
-    minutes = parseInt(seconds_left / 60);
-    seconds = parseInt(seconds_left % 60);
-     
-    // format countdown string + set tag value
-    countdown.innerHTML = '<span class="days">' + days +  ' <b>Days</b></span> <span class="hours">' + hours + ' <b>Hours</b></span> <span class="minutes">'
-    + minutes + ' <b>Minutes</b></span> <span class="seconds">' + seconds + ' <b>Seconds</b></span>';  
- 
-}, 1000);
+//<script language="javascript">
+
+$(document).ready(function(){
+    //초기값
+    var hour = {{ bread.release_at.hour }};
+    var minute = {{ bread.release_at.min }};
+    var second = 0;
+    
+    // 초기화
+    $(".countTimeHour").html(hour);
+    $(".countTimeMinute").html(minute);
+    $(".countTimeSecond").html(second);
+    
+    var timer = setInterval(function () {
+            // 설정
+            $(".countTimeHour").html(hour);
+            $(".countTimeMinute").html(minute);
+            $(".countTimeSecond").html(second);
+            
+            if(second == 0 && minute == 0 && hour == 0){
+                alert('타이머 종료.');
+                clearInterval(timer); /* 타이머 종료 */
+            }else{
+                second--;
+                
+                // 분처리
+                if(second < 0){
+                    minute--;
+                    second = 59;
+                }
+                
+                //시간처리
+                if(minute < 0){
+                    if(hour > 0){
+                        hour--;
+                        minute = 59;
+                    }
+                    
+                }
+            }
+        }, 1000); /* millisecond 단위의 인터벌 */
+});
+
+
+//</script>

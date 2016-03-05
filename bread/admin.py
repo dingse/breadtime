@@ -6,5 +6,5 @@ from bread.models import Bread
 
 class BreadAdmin(admin.ModelAdmin):
 	list_display = ['id', 'description', 'image_file', 'filtered_image_file']
-11
+	
 admin.site.register(Bread)
