@@ -69,12 +69,20 @@ body { padding-top: 50px; }
 
         $(document).ready(function(){
             //초기값
-            var epoch = new Date().getTime() / 1000;
+            var epoch = {{ nowTime|date:"U" }}//new Date().getTime() / 1000;
             epoch = Math.floor(epoch);
 
             var release = {{ bread.release_at|date:"U" }};
                             
             var timeleft = release - epoch; 
+
+            var timeover = false;
+
+            if(timeleft < 0)
+            {
+                timeover = true;
+                timeleft = epoch - release;
+            }
 
             var hour = Math.floor(timeleft / 3600);
             var minute = Math.floor((timeleft % 3600) / 60);
@@ -89,12 +97,32 @@ body { padding-top: 50px; }
                     $(".countTimeHour{{ bread.id }}").html(hour);
                     $(".countTimeMinute{{ bread.id }}").html(minute);
                     $(".countTimeSecond{{ bread.id }}").html(second);
+                    $(".getTimeover{{ bread.id }}").html(timeover);
                     
-                    if(second == 0 && minute == 0 && hour == 0){
-                        alert('타이머 종료.');
-                        clearInterval(timer); /* 타이머 종료 */
+                    if(timeover){                        
+                        second++;
+
+                        
+                        // 분처리
+                        if(second > 59){
+                            minute++;
+                            second = 0;
+                        }
+                        
+                        //시간처리
+                        if(minute > 59){
+                            
+                            hour++;
+                            minute = 0;
+                        }
                     }else{
+                        if(timeleft <= 0)
+                        {
+                          location.reload(true);
+                          timeover = true;
+                        }
                         second--;
+                        timeleft--;
                         
                         // 분처리
                         if(second < 0){
@@ -122,6 +150,12 @@ body { padding-top: 50px; }
 
 
 
+      {% if bread.release_at|date:"U" < nowTime|date:"U" %}
+      <div>
+        <strong>빵이 나왔습니다! </strong>        
+      </div>
+
+      {% else %}
 
       <div>
         <strong>빵 나오기 </strong>
@@ -130,6 +164,7 @@ body { padding-top: 50px; }
         <span class="countTimeSecond{{ bread.id }}">60</span>초
         <strong> 전! </strong>
       </div>
+      {% endif %}
 
     </div>
     {% endfor %}
