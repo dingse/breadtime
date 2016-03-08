@@ -55,6 +55,8 @@ body { padding-top: 50px; }
 
   <div class="container">
     {% for bread in breads %}
+    <!-- 나온지 한 시간이 지나면 빵 목록에서 사라짐 -->
+      {% if limitTime|date:"U" < bread.release_at|date:"U" %} 
     <div class="starter-template">
       <h1><a href = "">{{ bread.name }}</a></h1>
       <p><img src='uploads/{{ bread.image_file }}' style="max-width: 100%; height: auto;"></p>
@@ -167,6 +169,7 @@ body { padding-top: 50px; }
       {% endif %}
 
     </div>
+    {% endif %}
     {% endfor %}
   </div>
 

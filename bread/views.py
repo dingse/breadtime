@@ -24,7 +24,13 @@ def bread_list(request):
 
 def bread_boot(request):	
 	#breads = Bread.objects.filter(release_at=timezone.now()).order_by('release_at')
-	breads = Bread.objects.all()
+	#breads = Bread.objects.all()
+	
+	breads = Bread.objects.order_by("release_at")
+	# breads.objects.order_by("release_at")
 	nowTime = timezone.now()
+	limitTime = timezone.now() + timezone.timedelta(hours = -1)
 
-	return render(request, 'bread/bread_boot.html', {'breads':breads, 'nowTime':nowTime})
+	return render(request, 'bread/bread_boot.html', {'breads':breads, 
+													'nowTime':nowTime, 
+													'limitTime':limitTime})
