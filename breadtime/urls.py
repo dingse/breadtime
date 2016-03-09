@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+
 from bread import views
 
 urlpatterns = [
@@ -22,6 +24,15 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^bread/(\d+)$', views.single_bread, name='view_single_bread'),
     url(r'^$', views.bread_boot, name='view_bread_boot'),
+    url(r'^html/', views.bread_html, name='view_bread_html'),
+    url(r'^accounts/login', auth_views.login, name='login', 
+            kwargs={
+                'template_name':'bread/login.html'}
+                ),
+    url(r'^accounts/logout', auth_views.logout, name='logout', 
+            kwargs={
+                'template_name':'bread/logout.html'}
+                ),
 #    url(
 #    	r'^accounts/login/',
 #    	name = 'login',

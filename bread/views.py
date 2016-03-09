@@ -34,3 +34,7 @@ def bread_boot(request):
 	return render(request, 'bread/bread_boot.html', {'breads':breads, 
 													'nowTime':nowTime, 
 													'limitTime':limitTime})
+
+
+def bread_html(request):	
+	return render(request, 'bread/bread_intro.html')
