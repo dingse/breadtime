@@ -1,10 +1,12 @@
 #coding: utf-8
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.utils import timezone
 
 from .models import Bread
+
+from bread.forms import BreadEditForm, BreadObjectEditForm
 
 # Create your views here.
 def single_bread(request, bread_id):
@@ -38,3 +40,44 @@ def bread_boot(request):
 
 def bread_html(request):	
 	return render(request, 'bread/bread_intro.html')
+
+def new_bread(request):
+	if request.method == "GET":
+		edit_form = BreadEditForm()
+
+	elif request.method == "POST":
+		edit_form = BreadEditForm(request.POST, request.FILES)
+
+		if edit_form.is_valid():
+			new_bread = edit_form.save()
+
+			return redirect(new_bread.get_absolute_url())
+
+	return render(
+		request,
+		'bread/new_bread.html',
+		{
+			'form': edit_form,
+		}
+	)
+
+def new_bread_object(request):
+	if request.method == "GET":
+		edit_form = BreadObjectEditForm()
+
+	elif request.method == "POST":
+		edit_form = BreadObjectEditForm(request.POST, request.FILES)
+
+		if edit_form.is_valid():
+			new_bread_object = edit_form.save()
+
+			return redirect(new_bread_object.get_absolute_url())
+		
+
+	return render(
+		request,
+		'bread/new_bread_object.html',
+		{
+			'form': edit_form,
+		}
+	)

@@ -33,6 +33,8 @@ urlpatterns = [
             kwargs={
                 'template_name':'bread/logout.html'}
                 ),
+    url(r'^bread/upload/$', views.new_bread, name='view_new_bread'),
+    url(r'^bread/upload_object/$', views.new_bread_object, name='view_new_bread_object'),
 #    url(
 #    	r'^accounts/login/',
 #    	name = 'login',
