@@ -109,13 +109,13 @@
 
 
       {% if bread.release_at|date:"U" < nowTime|date:"U" %}
-      <div>
+      <div class="redbig">
         <strong>빵이 나왔습니다! </strong>        
       </div>
 
       {% else %}
 
-      <div>
+      <div class="blackbig">
         <strong>빵 나오기 </strong>
         <span class="countTimeHour{{ bread.id }}">60</span>시간
         <span class="countTimeMinute{{ bread.id }}">60</span>분

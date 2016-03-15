@@ -1,19 +1,21 @@
 {% extends 'bread/page_base.html' %}
 
 {% block content %}
-<form
-    method="POST"
+<div class="starter-template">
+	<form
+	    method="POST"
 
-    action="{% url 'view_new_bread' %}"
+	    action="{% url 'view_new_bread' %}"
 
-    enctype="multipart/form-data"
->
-    {% csrf_token %}
-    {{form.as_p}}
+	    enctype="multipart/form-data"
+	>
+	    {% csrf_token %}
+	    {{form.as_p}}
 
-    <p>
-        <input type="submit" />
-    </p>
-</form>
-
+	    <p>
+	        <input type="submit" />
+	    </p>
+	</form>
+</div>
 {% endblock %}
+
